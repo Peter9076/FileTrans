@@ -1,5 +1,9 @@
 # FileTrans
 
+<div align="center">
+    <img src="./pics/icon.jpg" align="center" width = "40%">
+</div>
+
 # File Translation Web System
 
 ## 项目概述
