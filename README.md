@@ -5,7 +5,6 @@
 <div align = "center">
 	<h1 align = "center">FileTrans</h1>    
     <h4 align = "center">File Translation Web System</h4>
-    简体中文
 </div>
 
 
