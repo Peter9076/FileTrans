@@ -15,9 +15,9 @@
 ##  UI界面
 
 <div align = "center">
-    <img src="./pics/UI_main.png" width="18%" />
-    <img src="./pics/UI_file_trans.png" width="18%" />
-    <img src="./pics/UI_3.png" width="18%" />
+    <img src="./pics/UI_main.png" width="80%" />
+    <img src="./pics/UI_file_trans.png" width="80%" />
+    <img src="./pics/UI_3.png" width="80%" />
 </div>
 
 
