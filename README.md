@@ -4,8 +4,8 @@
     <img src="./pics/icon.png" align="center" width = "40%">
 </div>
 <div align = "center">
-	<h1 align = "center">TransWe</h1>    
-    <h4 align = "center">Translate WeChat Mini Program</h4>
+	<h1 align = "center">FileTrans</h1>    
+    <h4 align = "center">File Translation Web System</h4>
     简体中文
 	&nbsp;&nbsp;| &nbsp;&nbsp;
 
