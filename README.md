@@ -7,9 +7,19 @@
 	<h1 align = "center">FileTrans</h1>    
     <h4 align = "center">File Translation Web System</h4>
     简体中文
+</div>
 
-    
-# File Translation Web System
+### 请点击以下网址体验
+### （此系统将在6月20日部署到公网上）
+
+##  UI界面
+
+<div align = "center">
+    <img src="./pics/UI_main.png" width="18%" />
+    <img src="./pics/UI_file_trans.png" width="18%" />
+    <img src="./pics/UI_3.png" width="18%" />
+</div>
+
 
 ## 项目概述
 
