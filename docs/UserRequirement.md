@@ -1,6 +1,6 @@
 <h1 align = "center">用户需求</h1>
 
-## 1 集成文本翻译（Text Translation）
+## 1 文本翻译（Text Translation）
 
 1. 用户需求：
 
@@ -8,7 +8,7 @@
 
 2. 用户需求标识：**FileTransURTT**
 
-## 2 集成文档翻译（Document Translation）
+## 2 文档翻译（Document Translation）
 
 1. 用户需求：
 
@@ -16,7 +16,7 @@
 
 2. 用户需求标识 ：**FileTransURDT**
 
-## 3 集成文档上传（Document Upload）
+## 3 文档上传（Document Upload）
 
 1. 用户需求：
 
