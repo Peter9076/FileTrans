@@ -84,7 +84,7 @@ FileTrans是一个基于Web的翻译系统，用户可以通过公网访问，�
 
 ## 协议
 
- ![GPL-3.0](https://img.shields.io/badge/license-GPL--3.0-orange%29)(https://github.com/Peter9076/FileTrans/blob/main/LICENSE)
+ <a href="[https://github.com/dekrt](https://github.com/Peter9076/FileTrans/blob/main/LICENSE)">[![GPL-3.0](https://img.shields.io/badge/license-GPL--3.0-orange%29)</a>
 
 >**警告**
 >
