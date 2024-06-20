@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>FileTrans</title>
+    <link rel="icon" href="favicon.svg" type="image/x-icon">
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?f934a6ddc813170aa6ed18e6b5ade85d";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/crypto-js/4.0.0/crypto-js.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/enc-base64.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.worker.min.js"></script>
+    <script src="./js/cookie.js"></script>
+    <link rel="stylesheet" href="./css/index.css">
+    <script src="./js/vue.js"></script>
+    <script src="./js/axios.min.js"></script>
+    <script src="./js/md5.js"></script>
+    <script src="./js/vue-uploader.js"></script>
+    <!-- 引入样式 -->
+    <!-- <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css"> -->
+    <!-- 引入组件库 -->
+    <!-- <script src="https://unpkg.com/element-ui/lib/index.js"></script> -->
+    <link rel="stylesheet" href="./css/element.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">
+    <script src="./js/element.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <template>
+            <el-container>
+                <el-header>
+                    <img src="favicon.svg" alt="Icon" style="height: 80%;margin-right: 10px;">
+                    <h1>
+                        FileTrans
+                    </h1>
+                    <div class="titleIcon" v-if="isPhone">
+                        <i class="el-icon-s-unfold"></i>
+                        <i class="el-icon-s-tools"></i>
+                    </div>
+                </el-header>
+                <el-main class="page-content">
+                    <el-row class="main-content" id="multiContainer" style="height: 80vh;">
+                        <el-row class="first">
+                            <el-row class="second">
+                                <el-row class="header-select" v-if="!suc">
+                                    <div class="top">
+                                        <div class="l">
+                                            <div class="options-select">
+                                                <div class="model">
+                                                    <div class="model-first">
+                                                        <div class="model-second">
+                                                            <div class="model-content">
+                                                                <span class="model-span"></span>
+                                                                <span>传统机器翻译 ·通用领域</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="ai">
+                                                        <div class="ai-first">
+                                                            <div class="ai-content">
+                                                                <span class="ai-span"></span>
+                                                                <span>AI大模型翻译 · 基础版</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="expert">
+                                                    <div class="expert-content">
+                                                        <span class="expert-span"></span>
+                                                        <span>AI翻译专家增强版</span>
+                                                    </div>
+                                                </div>
+                                                <div style="margin-left: 20px;">
+                                                    <div class="tit" v-if="isPhone">from</div>
+                                                    <el-select v-model="selectValue1" :placeholder="tableList.list1"
+                                                        ref="lSelect">
+                                                        <el-option v-for="item in selectOptions1" :key="item.value"
+                                                            :label="item.label" :value="item.value">
+                                                            <i :class="['flag-icon', item.flagClass]"></i>
+                                                            {{item.label}}
+                                                        </el-option>
+                                                    </el-select>
+                                                    <svg width="10" height="10" fill="none"
+                                                        xmlns="http://www.w3.org/2000/svg" class="mg3bUrpQ">
+                                                        <path
+                                                            d="M.474 4.057h9.052a.475.475 0 00.427-.678.472.472 0 00-.133-.165.475.475 0 00-.1-.095L6.337.753a.475.475 0 00-.673.64.473.473 0 00.128.133L8.06 3.112H.474A.475.475 0 000 3.584a.472.472 0 00.474.473zm9.052 1.886H.474A.475.475 0 000 6.416a.47.47 0 00.18.37.473.473 0 00.1.095l3.382 2.366a.474.474 0 00.74-.468.472.472 0 00-.195-.305L1.94 6.888h7.585A.475.475 0 0010 6.416a.472.472 0 00-.474-.473z"
+                                                            fill="#A2A6C7"></path>
+                                                    </svg>
+                                                    <div class="tit" v-if="isPhone">to</div>
+                                                    <el-select v-model="selectValue2" :placeholder="tableList.list5"
+                                                        ref="rSelect">
+                                                        <el-option v-for="item in selectOptions2" :key="item.value"
+                                                            :label="item.label" :value="item.value">
+                                                            <i :class="['flag-icon', item.flagClass]"></i>
+                                                            {{item.label}}
+                                                        </el-option>
+                                                    </el-select>
+                                                </div>
+                                            </div>
+                                            <el-button v-if="false" type="primary" @click="youDao">翻译</el-button>
+                                            <el-button v-if="false" @click="youDao">人工翻译</el-button>
+                                        </div>
+                                        <div class="r">
+                                            <span class="rD4tiqrj"><svg width="17" height="17" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg" class="aRLr5X2o">
+                                                    <path
+                                                        d="M15.764 8.436c0 3.803-3.255 6.89-7.276 6.89-4.02 0-7.276-3.087-7.276-6.89 0-3.803 3.255-6.89 7.276-6.89 4.02 0 7.276 3.087 7.276 6.89zm-15.698 0c0 4.41 3.773 7.982 8.422 7.982 4.649 0 8.422-3.571 8.422-7.982S13.137.454 8.488.454C3.839.454.066 4.025.066 8.436z"
+                                                        fill="currentColor" stroke="#000" stroke-width="0.1"></path>
+                                                    <path
+                                                        d="M8.11 9.219h0a.535.535 0 01-.195-.412V3.478c0-.304.259-.546.573-.546.314 0 .573.242.573.546v5.08l2.944 2.44h0a.528.528 0 01.053.773h0a.594.594 0 01-.808.05L8.11 9.22zm0 0l3.14 2.602L8.11 9.22z"
+                                                        fill="currentColor" stroke="#000" stroke-width="0.1"></path>
+                                                </svg>
+                                            </span>
+                                            <span class="fav"><svg width="24" height="22" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg" class="aRLr5X2o">
+                                                    <path
+                                                        d="M18.405 6.702c-.318 0-.578-.242-.582-.543 0-.038-.013-.962-.013-1.28a.277.277 0 00-.282-.28h-4.735c-.322 0-.582-.246-.582-.551 0-.306.26-.551.582-.551h4.74c.384 0 .746.144 1.02.402.277.263.425.615.425.993-.005.309.009 1.25.009 1.259a.565.565 0 01-.573.56c0-.009-.005-.009-.01-.009z"
+                                                        fill="currentColor"></path>
+                                                    <path
+                                                        d="M18.276 18.023H5.616c-1.733 0-3.142-1.429-3.142-3.184V6.007c0-1.755 1.41-3.184 3.141-3.184h5.04c1.011 0 1.964.496 2.55 1.327l.766 1.077c.362.513.94.818 1.548.818h2.752c1.732 0 3.142 1.43 3.142 3.184v5.61c.005 1.755-1.405 3.184-3.137 3.184zM5.616 3.972c-1.066 0-1.93.911-1.93 2.035v8.832c0 1.124.869 2.035 1.93 2.035H18.27c1.066 0 1.93-.911 1.93-2.035v-5.61c0-1.123-.869-2.035-1.93-2.035H15.52a3.128 3.128 0 01-2.55-1.327l-.766-1.077a1.905 1.905 0 00-1.548-.818h-5.04z"
+                                                        fill="currentColor"></path>
+                                                </svg>
+                                            </span>
+                                            <svg width="18" height="18" fill="none" xmlns="http://www.w3.org/2000/svg"
+                                                class="fHyMUyCu">
+                                                <g clip-path="url(#icon-set_svg__clip0_2839_1707)" fill="currentColor">
+                                                    <path
+                                                        d="M9.08 11.985c-1.873 0-3.305-1.357-3.305-3.132 0-1.774 1.432-3.13 3.305-3.13 1.873 0 3.305 1.356 3.305 3.13 0 1.775-1.432 3.132-3.305 3.132zm0-5.219c-1.212 0-2.203.94-2.203 2.087 0 1.149.991 2.088 2.203 2.088 1.212 0 2.204-.94 2.204-2.088 0-1.148-.992-2.087-2.204-2.087z">
+                                                    </path>
+                                                    <path
+                                                        d="M11.284 17.203H6.877c-.33 0-.55-.209-.55-.522v-1.983c-.441-.209-.882-.417-1.212-.626l-1.763 1.044a.6.6 0 01-.771-.21L.378 11.255c-.22-.313-.11-.626.22-.73L2.36 9.48V8.227L.598 7.184c-.33-.105-.44-.418-.22-.731L2.58 2.8c.11-.209.44-.313.77-.104l1.764 1.043c.33-.208.77-.522 1.211-.626V1.026c0-.313.22-.522.551-.522h4.407c.33 0 .55.209.55.522v1.983c.441.208.882.417 1.212.626l1.763-1.044a.6.6 0 01.77.209l2.204 3.653c.22.313.11.626-.22.73L15.8 8.228V9.48l1.763 1.043c.22.105.33.418.22.73l-2.203 3.654c-.11.209-.44.313-.771.209l-1.763-1.044c-.33.209-.77.522-1.212.626v1.983c0 .313-.22.522-.55.522zm-3.856-1.044h3.305v-1.774a.57.57 0 01.33-.522 7.13 7.13 0 001.542-.835.737.737 0 01.662 0l1.652.94 1.652-2.714-1.652-.94c-.22-.208-.33-.417-.22-.626 0-.313.11-.521.11-.835 0-.313 0-.521-.11-.835 0-.208.11-.417.22-.521l1.652-.94-1.652-2.713-1.652.939a.737.737 0 01-.662 0 7.132 7.132 0 00-1.542-.835c-.22-.209-.33-.417-.33-.626V1.548H7.428v1.774a.57.57 0 01-.33.522 7.133 7.133 0 00-1.543.835.737.737 0 01-.66 0l-1.653-.835-1.653 2.713 1.653.94c.22.104.33.313.22.521 0 .314-.11.522-.11.835 0 .314 0 .522.11.835.11.21 0 .418-.22.522l-1.653.94 1.653 2.713 1.652-.94a.737.737 0 01.661 0c.44.314.992.627 1.542.836a.57.57 0 01.33.522v1.878z">
+                                                    </path>
+                                                </g>
+                                                <defs>
+                                                    <clipPath id="icon-set_svg__clip0_2839_1707">
+                                                        <path fill="#fff" transform="translate(.263 .504)"
+                                                            d="M0 0h17.626v16.699H0z"></path>
+                                                    </clipPath>
+                                                </defs>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </el-row>
+                                <el-row class="options-setting" v-if="suc">
+                                    <div class="options-first">
+                                        <div class="options-first-content">
+                                            <span class="full">整页预览</span>
+                                            <span class="se">逐句对照</span>
+                                        </div>
+                                    </div>
+                                    <div class="options-second">
+                                        <div>
+                                            <div class="da" @click="fangda"
+                                                style="background-image: url(&quot;https://fanyi-cdn.cdn.bcebos.com/static/cat/asset/enlarge.2413ea4d.svg&quot;); margin-left: -10px;">
+                                                放大</div>
+                                            <div class="xiao" @click="suoxiao"
+                                                style="background-image: url(&quot;https://fanyi-cdn.cdn.bcebos.com/static/cat/asset/narrow.ca37a586.svg&quot;); margin-right: -8px;">
+                                                缩小</div>
+                                        </div>
+                                        <div class="daochu" style="margin-right: 15px;margin-left: 20px;"
+                                            @click="downloadFile">导出</div>
+                                        <div class="daochuicon"
+                                            style="background-image: url(&quot;https://fanyi-cdn.cdn.bcebos.com/static/cat/asset/collapseHeaderOff.2951ffdd.svg&quot;);">
+                                        </div>
+                                    </div>
+                                </el-row>
+                                <el-row style="display: flex;justify-content:center;" v-if="suc">
+                                    <el-col>
+                                        <span class="yuanwen">原文</span>
+                                        <em>{{fileName}}</em>
+                                    </el-col>
+                                    <el-col class="yiwen">
+                                        <span class="yiwen-span">译文
+                                            <span class="lingyu" style="margin-left: 6px;">通用领域</span>
+                                            <span class="lingyu" style="margin-left: 6px;">{{yiwenType}}</span>
+                                        </span>
+                                    </el-col>
+                                </el-row>
+                                <el-row class="content">
+                                    <el-row class="content-header" v-if="!suc">
+                                        <div class="content-header-text">
+                                            <div class="content-header-text-text">
+                                                当前由<span class="content-header-text-type">传统机器翻译 · 通用领域模型</span>为您翻译
+                                            </div>
+                                        </div>
+                                        <div class="content-header-icon">
+                                            <span class="content-header-icon-span"><svg width="13" height="11"
+                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path
+                                                        d="M9.26 4.1L7.058 6.598c-.128.139-.055.402.325.402h4.213c.462 0 .461-.263.325-.402L9.719 4.1c-.119-.138-.332-.129-.46 0z"
+                                                        fill="#626BB5"></path>
+                                                    <path d="M1 1.5h10.45M1 5.5h4.5M1 9.5h10.45" stroke="#626BB5"
+                                                        stroke-width="1.2" stroke-linecap="round"
+                                                        stroke-linejoin="round"></path>
+                                                </svg>
+                                            </span>
+                                        </div>
+                                    </el-row>
+                                    <i class="divider"></i>
+                                    <el-row class="content-body">
+                                        <div class="text">
+                                            <div class="textFrom" v-if="!suc">
+                                                <el-input v-if="!uploaderSuc" type="textarea" :rows="2"
+                                                    placeholder="请输入文本，网址等" v-model="textareaFrom" resize="none"
+                                                    ref="lInput">
+                                                </el-input>
+                                                <div v-if="!uploaderSuc"
+                                                    style="display: flex;justify-content: space-between;">
+                                                    <i :class="['flag-icon',licon]" style=" margin-left: 40px;"></i>
+                                                    <span>
+                                                        <span class="langdu">
+                                                            <span class="langdu-icon"></span>
+                                                        </span>
+                                                        <span class="fuzhi"><svg width="13" height="13" fill="none"
+                                                                @click="copyFrom()" xmlns="http://www.w3.org/2000/svg">
+                                                                <path
+                                                                    d="M9.957 1.822V1.8a1.2 1.2 0 00-1.2-1.2H2.2A1.2 1.2 0 001 1.8v6.557a1.2 1.2 0 001.2 1.2h.021"
+                                                                    stroke="currentColor" stroke-width="1.2"></path>
+                                                                <rect width="8.957" height="8.957" rx="1.2"
+                                                                    transform="matrix(-1 0 0 1 12.4 3.043)"
+                                                                    stroke="currentColor" stroke-width="1.2"></rect>
+                                                            </svg>
+                                                        </span>
+                                                    </span>
+                                                </div>
+                                                <uploader-form v-if="uploaderSuc"></uploader-form>
+                                                <el-row>
+                                                    <uploader :options="options" class="uploader-example" ref="uploader"
+                                                        @file-added="handleFileAdded" @file-success="fileSuccess">
+                                                        <uploader-unsupport></uploader-unsupport>
+                                                        <uploader-drop>
+                                                            <div v-if="!uploaderSuc"
+                                                                style="text-align: center;margin-bottom: 10px;font-size: 20px;">
+                                                                拖拽上传文件或点击</div>
+                                                            <uploader-icons v-if="!uploaderSuc"></uploader-icons>
+                                                            <div v-if="!uploaderSuc" style="text-align: center;">
+                                                                <uploader-btn :attrs="attrs" single style="width: 80px; font-size: 20px;">选择文件</uploader-btn>
+                                                            </div>
+                                                            <div style="text-align: center;" v-if="uploaderSuc">
+                                                                <img src="https://fanyi-cdn.cdn.bcebos.com/static/cat/asset/success.17d80abd.png"
+                                                                    width="44">
+                                                                <div class="ZRXAxAWD"
+                                                                    style="color: rgb(135, 195, 143);">文件上传成功</div>
+                                                            </div>
+                                                        </uploader-drop>
+                                                        <uploader-list></uploader-list>
+                                                    </uploader>
+                                                </el-row>
+                                                <el-button v-if="!type" style="float:right;margin-bottom: 15px;"
+                                                    type="primary" @click="youDao">翻译</el-button>
+                                                <el-button v-if="type" style="float:right;margin-bottom: 15px;"
+                                                    type="primary" @click="openDialog"
+                                                    v-loading.fullscreen.lock="btnLoading">文档翻译</el-button>
+                                            </div>
+                                            <div class="textTo" v-if="!type">
+                                                <el-input type="textarea" :rows="2" placeholder="译文"
+                                                    v-model="textareaTo" resize="none" ref="rInput">
+                                                </el-input>
+                                                <i :class="['flag-icon', ricon]"
+                                                    style="float: left; margin-left: 40px;"></i>
+                                                <span style="float: right;margin-right: 20px;">
+                                                    <span class="langdu">
+                                                        <span class="langdu-icon"></span>
+                                                    </span>
+                                                    <span class="fuzhi"><svg width="13" height="13" fill="none"
+                                                            @click="copy()" xmlns="http://www.w3.org/2000/svg">
+                                                            <path
+                                                                d="M9.957 1.822V1.8a1.2 1.2 0 00-1.2-1.2H2.2A1.2 1.2 0 001 1.8v6.557a1.2 1.2 0 001.2 1.2h.021"
+                                                                stroke="currentColor" stroke-width="1.2"></path>
+                                                            <rect width="8.957" height="8.957" rx="1.2"
+                                                                transform="matrix(-1 0 0 1 12.4 3.043)"
+                                                                stroke="currentColor" stroke-width="1.2"></rect>
+                                                        </svg>
+                                                    </span>
+                                                </span>
+                                            </div>
+                                            <div class="pdf-container" ref="pdfContainer1" v-if="suc">
+                                                <pdf-viewer :pdf-url="lfileUrl" ref="pdfViewer1"></pdf-viewer>
+                                            </div>
+                                            <div class="pdf-container" ref="pdfContainer2" v-if="suc">
+                                                <pdf-viewer :pdf-url="fileUrl" ref="pdfViewer2"></pdf-viewer>
+                                            </div>
+                                        </div>
+                                    </el-row>
+                                </el-row>
+                                <el-row class="footer">
+                                    ©2024 FileTrans<div class="copyright"><a target="_blank"
+                                            rel="noreferrer">使用前必读</a>|<a target="_blank" rel="noreferrer">服务协议</a>|<a
+                                            target="_blank" rel="noreferrer">帮助</a>
+                                    </div>
+                                    <div class="focus"><a title="关注微博" class="wb" target="_blank"
+                                            rel="noreferrer"></a><a title="关注微信" class="wx"></a><a title="联系我们"
+                                            class="IceKzK9j" target="_self"></a></div>
+                                    <div class="version"><a target="_blank" class="O2c8XUCK">版本更新：1.3</a><a
+                                            class="cX5QuC0X oJ6oP7Mc fSVuWWoc">意见反馈</a><a class="ZqBFI2ci"
+                                            target="_blank" rel="noreferrer"><img class="EEkN934h" height="21"></a><a
+                                            class="ZqBFI2ci" target="_blank" rel="noreferrer"><img
+                                                src="https://fanyi-cdn.cdn.bcebos.com/static/cat/asset/icon-ios.1648cf3d.png"
+                                                class="EEkN934h" height="20"></a><a class="ZqBFI2ci" target="_blank"
+                                            rel="noreferrer"><img
+                                                src="https://fanyi-cdn.cdn.bcebos.com/static/cat/asset/icon-windows.80c2e037.png"
+                                                class="EEkN934h" height="19"></a><a class="ZqBFI2ci QtzCdwI4"
+                                            target="_blank" rel="noreferrer"><img
+                                                src="https://fanyi-cdn.cdn.bcebos.com/static/cat/asset/icon-mac.51281b40.png"
+                                                class="EEkN934h" height="19"></a></div>
+                                </el-row>
+                            </el-row>
+                        </el-row>
+                    </el-row>
+                    <el-dialog :visible="dialogOpen" width="25%" :before-close="closeDialog">
+                        <span slot="title"
+                            aria-label="exclamation-circle"
+                            class="confirmImg">
+                            <svg viewBox="64 64 896 896"
+                                focusable="false" data-icon="exclamation-circle" width="1em"
+                                height="1em" fill="currentColor" aria-hidden="true">
+                                <path
+                                    d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z">
+                                </path>
+                                <path
+                                    d="M464 688a48 48 0 1096 0 48 48 0 10-96 0zm24-112h48c4.4 0 8-3.6 8-8V296c0-4.4-3.6-8-8-8h-48c-4.4 0-8 3.6-8 8v272c0 4.4 3.6 8 8 8z">
+                                </path>
+                            </svg>
+                            <span class="confirmTitle">警告</span>
+                        </span>
+                        <div class="confirmContent">
+                            请选择正确的翻译语言方向，否则将无法翻译文档！
+                        </div>
+                        <div class="confirmBtns">
+                            <button type="button"
+                                class="defaultBtn" @click="closeDialog"><span>重新选择</span></button><button
+                                type="button" class="primaryBtn" @click="startTransDoc"><span>继续翻译</span></button>
+                        </div>
+                    </el-dialog>
+                </el-main>
+                <!-- <el-footer></el-footer> -->
+            </el-container>
+        </template>
+    </div>
+
+    <script src="./js/index.js"></script>
+</body>
+
+</html>
