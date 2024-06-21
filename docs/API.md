@@ -6,7 +6,7 @@
 
     https://open.fanyigou.com/service/docAPI.html#page2
 
-## 2 文本翻译接口
+## 2 <a href="https://fanyi-api.baidu.com/">文本翻译接口</a>
 
 ### API网址：
 
