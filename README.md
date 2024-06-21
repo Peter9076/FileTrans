@@ -12,7 +12,7 @@
 
 ### 此系统已经部署到公网上，请联系wtx获取网址
 
-### 或者（<a href="https://github.com/Peter9076/FileTrans/blob/main/%E4%B8%8B%E8%BD%BD%E4%BD%BF%E7%94%A8%E8%AF%B7%E7%9C%8B%E8%BF%99%E9%87%8C.md"直接下载使用></a>）
+### 或者（<a href="https://github.com/Peter9076/FileTrans/blob/main/%E4%B8%8B%E8%BD%BD%E4%BD%BF%E7%94%A8%E8%AF%B7%E7%9C%8B%E8%BF%99%E9%87%8C.md">直接下载使用</a>）
 
 ##  UI界面
 
