@@ -2,12 +2,12 @@
 
 ## 1 文档翻译接口
 
-### 接口API：
+### <a href="https://open.fanyigou.com/service/docAPI.html#page2">API</a>：
 
     https://open.fanyigou.com/service/docAPI.html#page2
 
 ## 2 文本翻译接口
 
-### 接口API：
+### API：
 
     https://fanyi-api.baidu.com/api/trans/vip/translate
