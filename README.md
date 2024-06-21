@@ -12,7 +12,7 @@
 
 ### 此系统已经部署到公网上，请联系wtx获取网址
 
-### 或者直接下载使用（参考<a href="https://github.com/Peter9076/FileTrans/本地使用指南.md">本地使用指南.md</a>）
+### 或者直接下载使用（参考<a href="https://github.com/Peter9076/FileTrans/blob/main/%E6%9C%AC%E5%9C%B0%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97.md">本地使用指南.md</a>）
 
 ##  UI界面
 
